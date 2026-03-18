@@ -70,7 +70,7 @@ app.post('/api/discord/send', async (req, res) => {
 
   for (let i = 0; i < amount; i++) {
     try {
-      const response = await fetch(`https://discord.com/api/v13/channels/${channelId}/messages`, {
+      const response = await fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
         method: 'POST',
         headers: {
           'Authorization': auth,
