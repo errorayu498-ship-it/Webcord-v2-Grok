@@ -1,16 +1,115 @@
-{
-  "name": "webcord-portal",
-  "version": "1.0.0",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.19.2",
-    "cors": "^2.8.5",
-    "node-fetch": "^2.7.0"
-  },
-  "engines": {
-    "node": ">=18"
-  }
-}
+<!-- Sab kuch pehle jaisa hi rakho, sirf <script> ke andar changes -->
+
+<script>
+    // ... pehle wala toast, switch functions, insertMarkdown etc same rakhna ...
+
+    // Webhook single send
+    async function sendSingleWebhook() {
+        const url = document.getElementById("webhook-url").value.trim();
+        const message = document.getElementById("webhook-message").value.trim();
+        
+        if (!url || !message) return showToast("URL aur Message daalo!", "error");
+
+        try {
+            const res = await fetch('/api/webhook/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url, content: message, amount: 1, delay: 0 })
+            });
+            const data = await res.json();
+            if (data.success === 1) showToast("Single message sent ✅", "success");
+            else showToast("Error: " + (data.failed?.[0] || "Unknown"), "error");
+        } catch (e) {
+            showToast("Network error: " + e.message, "error");
+        }
+    }
+
+    // Webhook bulk
+    async function startWebhookSending() {
+        const url = document.getElementById("webhook-url").value.trim();
+        const message = document.getElementById("webhook-message").value.trim();
+        const amount = parseInt(document.getElementById("webhook-amount").value);
+        const delaySec = parseFloat(document.getElementById("webhook-delay").value);
+
+        if (!url || !message || amount < 1) return showToast("Sab fields fill karo!", "error");
+
+        document.getElementById("webhook-start-btn").classList.add("hidden");
+        document.getElementById("webhook-stop-btn").classList.remove("hidden");
+
+        try {
+            const res = await fetch('/api/webhook/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url, content: message, amount, delay: delaySec })
+            });
+            const data = await res.json();
+            showToast(data.message, data.failed?.length > 0 ? "error" : "success");
+        } catch (e) {
+            showToast("Sending failed: " + e.message, "error");
+        }
+
+        document.getElementById("webhook-start-btn").classList.remove("hidden");
+        document.getElementById("webhook-stop-btn").classList.add("hidden");
+    }
+
+    // Bot/User single
+    async function sendSingleBot() {
+        const tokensStr = document.getElementById("bot-tokens").value.trim();
+        const channelId = document.getElementById("bot-channel-id").value.trim();
+        const message = document.getElementById("bot-message").value.trim();
+        const isBot = tokenType === 0;
+
+        if (!tokensStr || !message || !channelId) return showToast("Token, Channel ID aur Message daalo!", "error");
+
+        const token = tokensStr.split("\n")[0].trim();
+
+        try {
+            const res = await fetch('/api/discord/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token, channelId, content: message, amount: 1, delay: 0, isBot })
+            });
+            const data = await res.json();
+            if (data.success === 1) showToast("Single message sent ✅", "success");
+            else showToast("Error: " + (data.failed?.[0] || "Unknown"), "error");
+        } catch (e) {
+            showToast("Error: " + e.message, "error");
+        }
+    }
+
+    // Bot/User bulk (start)
+    async function startBotSending() {
+        const tokensStr = document.getElementById("bot-tokens").value.trim();
+        const channelId = document.getElementById("bot-channel-id").value.trim();
+        const message = document.getElementById("bot-message").value.trim();
+        const amount = parseInt(document.getElementById("bot-amount").value);
+        const delaySec = parseFloat(document.getElementById("bot-delay").value);
+        const isBot = tokenType === 0;
+
+        if (!tokensStr || !message || amount < 1 || !channelId) {
+            return showToast("Tokens, Channel ID, Message aur Amount daalo!", "error");
+        }
+
+        document.getElementById("bot-start-btn").classList.add("hidden");
+        document.getElementById("bot-stop-btn").classList.remove("hidden");
+
+        try {
+            const res = await fetch('/api/discord/send', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: tokensStr, channelId, content: message, amount, delay: delaySec, isBot })
+            });
+            const data = await res.json();
+            showToast(data.message, data.failed?.length > 0 ? "error" : "success");
+        } catch (e) {
+            showToast("Sending failed: " + e.message, "error");
+        }
+
+        document.getElementById("bot-start-btn").classList.remove("hidden");
+        document.getElementById("bot-stop-btn").classList.add("hidden");
+    }
+
+    // stopSending same rakh sakte ho (abhi backend pe stop nahi, sirf UI update)
+
+    // baaki init, switch etc same
+</script>
