@@ -654,15 +654,16 @@
             <div id="mainPage" class="tool-page active">
                 <div class="header">
                     <h1>WEBCORD PORTAL</h1>
-                    <p>Before using make sure to read the rules in the server</p>
-                    <div class="rules-note">⚠️ Follow server rules before sending messages</div>
+                    <p>Important Info</p>
+                    <div class="rules-note">⚠️ This tool is not affiliated with Discord. 
+Users must comply with Discord Terms of Service.</div>
                 </div>
 
                 <div class="menu-container">
                     <!-- Webhook Sender Card -->
                     <div class="menu-card">
                         <div class="menu-card-icon">🔗</div>
-                        <h2>Webhook Sender</h2>
+                        <h2>Webhook</h2>
                         <p>Send messages through webhook URLs with full control over message amount, delay, and sending speed.</p>
                         <button class="open-tool-btn" onclick="goToTool('webhookPage')">Open Tool</button>
                     </div>
@@ -670,7 +671,7 @@
                     <!-- Bot/User Sender Card -->
                     <div class="menu-card">
                         <div class="menu-card-icon">🤖</div>
-                        <h2>Bot/User Sender</h2>
+                        <h2>Bot/User</h2>
                         <p>Send messages using bot or user tokens across specific or all channels with advanced features.</p>
                         <button class="open-tool-btn" onclick="goToTool('botPage')">Open Tool</button>
                     </div>
@@ -682,7 +683,7 @@
                 <button class="back-button" onclick="goToTool('mainPage')">← Back to Main</button>
                 
                 <div class="tool-container">
-                    <h2>🔗 Webhook Sender</h2>
+                    <h2>WEBHOOK SENDER</h2>
 
                     <div class="input-group">
                         <label>Webhook URL</label>
@@ -736,18 +737,18 @@
                 <button class="back-button" onclick="goToTool('mainPage')">← Back to Main</button>
                 
                 <div class="tool-container">
-                    <h2>🤖 Bot/User Sender</h2>
+                    <h2>BOT/USER SENDER</h2>
 
                     <div class="input-group">
-                        <label>Token(s) - Single or Bulk</label>
+                        <label>Token - Single or Bulk</label>
                         <textarea id="botTokens" placeholder="Enter token(s) here. One per line for bulk adding..."></textarea>
                     </div>
 
                     <div class="token-list" id="tokenList"></div>
 
                     <div class="input-group">
-                        <label>Channel ID (Leave empty to auto-detect)</label>
-                        <input type="text" id="botChannel" placeholder="Leave empty for auto-detection or enter channel ID..." />
+                        <label>Channel ID (Leave empty to all channels)</label>
+                        <input type="text" id="botChannel" placeholder="Channel ID..." />
                     </div>
 
                     <div class="input-group">
@@ -775,7 +776,7 @@
                     </div>
 
                     <div class="buttons-container">
-                        <button class="btn btn-primary" onclick="addBotToken()">Add Token(s)</button>
+                        <button class="btn btn-primary" onclick="addBotToken()">Add Token</button>
                         <button class="btn btn-primary" onclick="sendBotSingle()">Send 1 Message</button>
                         <button class="btn btn-success" id="botStartBtn" onclick="sendBotBulk()">Start</button>
                         <button class="btn btn-danger" id="botStopBtn" onclick="stopBotSending()" disabled>Stop</button>
@@ -796,7 +797,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p>🛠️ PROGRAMMED BY SUBHAN 🛠️</p>
+            <p>PROGRAMMED BY WARRIOR TEAM</p>
         </div>
     </div>
 
