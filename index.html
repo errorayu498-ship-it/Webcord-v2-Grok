@@ -654,7 +654,7 @@
             <div id="mainPage" class="tool-page active">
                 <div class="header">
                     <h1>WEBCORD PORTAL</h1>
-                    <p>Important Info</p>
+                    <p>》IMPORTANT INFO《</p>
                     <div class="rules-note">⚠️ This tool is not affiliated with Discord. 
 Users must comply with Discord Terms of Service.</div>
                 </div>
@@ -684,7 +684,7 @@ Users must comply with Discord Terms of Service.</div>
                 
                 <div class="tool-container">
                     <h2>WEBHOOK SENDER</h2>
-
+                    
                     <div class="input-group">
                         <label>Webhook URL</label>
                         <input type="text" id="webhookUrl" placeholder="Enter your Discord webhook URL here..." />
@@ -738,6 +738,8 @@ Users must comply with Discord Terms of Service.</div>
                 
                 <div class="tool-container">
                     <h2>BOT/USER SENDER</h2>
+                    <h3>Maybe, Bot Token Tool Not Work Properly!</h3>
+
 
                     <div class="input-group">
                         <label>Token - Single or Bulk</label>
@@ -767,11 +769,11 @@ Users must comply with Discord Terms of Service.</div>
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Message Amount</label>
-                            <input type="number" id="botAmount" value="1" min="1" max="10000" />
+                            <input type="number" id="botAmount" value="0" min="1" max="10000" />
                         </div>
                         <div class="input-group">
                             <label>Delay (Seconds)</label>
-                            <input type="number" id="botDelay" value="1" min="0.1" step="0.1" />
+                            <input type="number" id="botDelay" value="0" min="0.1" step="0.1" />
                         </div>
                     </div>
 
@@ -827,10 +829,10 @@ Users must comply with Discord Terms of Service.</div>
                 popup.className = `popup ${type}`;
                 
                 const icons = {
-                    success: '✓',
-                    error: '✕',
+                    success: '✅',
+                    error: '❌',
                     warning: '⚠',
-                    info: 'ℹ'
+                    info: '❗'
                 };
 
                 popup.innerHTML = `
@@ -1298,20 +1300,20 @@ Users must comply with Discord Terms of Service.</div>
 
                 if (!response.ok) {
                     if (response.status === 401) {
-                        showPopup('❌ Invalid or expired token. Regenerate in Discord Developer Portal.', 'error');
+                        showPopup('Invalid or expired token. Regenerate in Discord Developer Portal.', 'error');
                     } else if (response.status === 403) {
-                        showPopup('❌ Permission denied. Bot needs "Send Messages" permission in this channel.', 'error');
+                        showPopup('Permission denied. Bot needs "Send Messages" permission in this channel.', 'error');
                     } else if (response.status === 404) {
-                        showPopup('❌ Channel not found. Verify channel ID exists.', 'error');
+                        showPopup('Channel not found. Verify channel ID exists.', 'error');
                     } else if (response.status === 429) {
-                        showPopup('⚠️ Rate limited. Wait before sending more messages.', 'warning');
+                        showPopup('Rate limited. Wait before sending more messages.', 'warning');
                     } else {
-                        showPopup(`❌ Error: ${response.statusText}`, 'error');
+                        showPopup(`Error: ${response.statusText}`, 'error');
                     }
                     return;
                 }
 
-                showPopup('✅ Message sent successfully!', 'success');
+                showPopup('Message sent successfully!', 'success');
             } catch (error) {
                 console.error('Bot send error:', error);
                 showPopup(`❌ Error: ${error.message}`, 'error');
@@ -1345,7 +1347,7 @@ Users must comply with Discord Terms of Service.</div>
 
                 // If no channel ID, auto-detect from token
                 if (!channelId) {
-                    showPopup('🔍 Auto-detecting channels from your bot...', 'info', 3000);
+                    showPopup('Auto-detecting channels from your bot...', 'info', 3000);
                     
                     try {
                         const token = botTokensList[0];
@@ -1407,7 +1409,7 @@ Users must comply with Discord Terms of Service.</div>
                 document.getElementById('botStopBtn').disabled = false;
                 document.getElementById('botProgress').classList.add('active');
 
-                showPopup(`📤 Starting to send ${amount} messages to channel...`, 'info');
+                showPopup(`Starting to send ${amount} messages to channel...`, 'info');
 
                 for (let i = 0; i < amount && botSending; i++) {
                     try {
@@ -1492,7 +1494,7 @@ Users must comply with Discord Terms of Service.</div>
         // ==================== INITIALIZATION ====================
         
         updateTokenList();
-        showPopup('WEBCORD Portal Loaded! Choose a tool to get started.', 'info', 5000);
+        showPopup('WEBCORD PORTAL CONNECTED TO DISCORD API, 'info', 5000);
     </script>
 </body>
 </html>
